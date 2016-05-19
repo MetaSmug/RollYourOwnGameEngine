@@ -21,7 +21,7 @@ namespace Demo.DragonDrop {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        ScalingViewportAdapter viewport;
+        BoxingViewportAdapter viewport;
         DragonDrop<Card> dragonDrop;
 
 
@@ -53,7 +53,7 @@ namespace Demo.DragonDrop {
         protected override void Initialize() {
 
             // viewport allows for dynamic screen scaling
-            viewport = new ScalingViewportAdapter(GraphicsDevice, 1000, 750);
+            viewport = new BoxingViewportAdapter(Window, GraphicsDevice, 1000, 750);
 
 
 
