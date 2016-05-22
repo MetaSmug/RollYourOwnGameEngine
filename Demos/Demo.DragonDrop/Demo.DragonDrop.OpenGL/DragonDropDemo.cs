@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Ruge.DragonDrop;
-using MonoGame.Extended.ViewportAdapters;
+using MonoGame.Ruge.ViewportAdapters;
 
 namespace Demo.DragonDrop {
     /// <summary>
