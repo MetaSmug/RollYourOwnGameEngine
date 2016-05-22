@@ -1,4 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿/* 
+© 2016 The Ruge Project (http://ruge.metasmug.com/) 
+
+Licensed under MIT (see License.txt)
+ 
+ */
+ 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.DragonDrop {
@@ -9,7 +16,6 @@ namespace MonoGame.Ruge.DragonDrop {
         Vector2 Position { get; set; }
         bool IsSelected { get; set; }
         bool IsMouseOver { set; }
-        bool Contains(Vector2 pointToCheck);
         Rectangle Border { get; }
         bool IsDraggable { get; set; }
         int ZIndex { get; set; }
@@ -17,6 +23,7 @@ namespace MonoGame.Ruge.DragonDrop {
 
         void OnSelected();
         void OnDeselected();
+        bool Contains(Vector2 pointToCheck);
         void HandleCollusion(IDragonDropItem item);
     }
 }

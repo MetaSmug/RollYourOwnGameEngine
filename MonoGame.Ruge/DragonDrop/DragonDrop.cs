@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using MonoGame.Extended.ViewportAdapters;
+using MonoGame.Ruge.ViewportAdapters;
 
 namespace MonoGame.Ruge.DragonDrop {
 
@@ -28,7 +28,12 @@ namespace MonoGame.Ruge.DragonDrop {
         public T ItemUnderTheMouseCursor { get; private set; }
         public bool IsThereAnItemUnderTheMouseCursor { get; private set; }
 
-
+        /// <summary>
+        /// Constructor. Uses MonoGame.Extended ViewportAdapter
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="sb"></param>
+        /// <param name="vp"></param>
         public DragonDrop(Game game, SpriteBatch sb, ViewportAdapter vp) : base(game) {
             spriteBatch = sb;
             viewport = vp;
@@ -90,7 +95,7 @@ namespace MonoGame.Ruge.DragonDrop {
 
         #endregion
 
-        #region methods
+        #region Methods
 
         private void SaveCurrentMouseState() {
             oldMouse = currentMouse;
