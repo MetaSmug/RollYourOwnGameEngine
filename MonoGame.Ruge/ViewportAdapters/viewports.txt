@@ -1,0 +1,2 @@
+﻿Viewports code attributed to MonoGame.Extended 0.5
+https://github.com/craftworkgames/MonoGame.Extended
