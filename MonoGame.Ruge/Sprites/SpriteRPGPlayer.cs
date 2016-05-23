@@ -10,27 +10,25 @@ namespace MonoGame.Ruge.Sprites {
 
     public class SpriteRPGPlayer {
         
-        private int cols, width, height, colOffset, rowOffset;
+        private int cols, width, height;
         private SpriteAnimator animateLeft, animateRight, animateUp, animateDown;
         public Rectangle rect;
         public Vector2 position, origin;
+        public int index;
 
         // this code pretty much assumes you're using a 3x4 or 4x4 type of grid layout
         // common for RPG Maker character tile sets
-        public SpriteRPGPlayer(int cols, int width, int height, int playerNum = 0) {
+        public SpriteRPGPlayer(int cols, int width, int height, Vector2 offset, int playerNum = 0) {
 
             this.cols = cols;
             this.width = width;
             this.height = height;
+            index = playerNum;
 
             Vector2 idle;
+            
 
-            // player offset calculation
-            int x, y;
-
-
-
-            SpriteGrid grid = new SpriteGrid(4, cols, width, height);
+            SpriteGrid grid = new SpriteGrid(4, cols, width, height, offset);
 
 
 
@@ -59,11 +57,13 @@ namespace MonoGame.Ruge.Sprites {
 
         }
 
+        public SpriteRPGPlayer(int cols, int width, int height) : this(cols, width, height, Vector2.Zero) { }
+        public SpriteRPGPlayer(int cols, int width, int height, int playerNum) : this(cols, width, height, Vector2.Zero, playerNum) { }
+
         public void moveDown()  { rect = animateDown.play(); }
         public void moveUp()    { rect = animateUp.play(); }
         public void moveLeft()  { rect = animateLeft.play(); }
         public void moveRight() { rect = animateRight.play(); }
-        
 
     }
 
