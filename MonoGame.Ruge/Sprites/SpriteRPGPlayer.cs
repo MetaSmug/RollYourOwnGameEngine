@@ -16,8 +16,9 @@ namespace MonoGame.Ruge.Sprites {
         public Vector2 position, origin;
         public int index;
 
-        // this code pretty much assumes you're using a 3x4 or 4x4 type of grid layout
-        // common for RPG Maker character tile sets
+        // this code assumes you're using a 3x4 or 4x4 type of grid layout
+        // common with RPG Maker character tile sets.  
+        
         public SpriteRPGPlayer(int cols, int width, int height, Vector2 offset, int playerNum = 0) {
 
             this.cols = cols;
@@ -54,7 +55,7 @@ namespace MonoGame.Ruge.Sprites {
             rect = grid.getRectangle(new Vector2(cols - 1, 0));
 
             origin = new Vector2(width / 2.0f, height / 2.0f);
-
+            
         }
 
         public SpriteRPGPlayer(int cols, int width, int height) : this(cols, width, height, Vector2.Zero) { }

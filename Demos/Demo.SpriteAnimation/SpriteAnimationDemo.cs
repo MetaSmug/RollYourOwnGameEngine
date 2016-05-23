@@ -3,10 +3,11 @@
 
 Licensed under MIT (see License.txt)
 
-
 Sprite attribution:
 http://opengameart.org/content/wraith-skelleton-king-from-dota-2-pixel-style
 https://www.pinterest.com/pin/88946161366186725/
+
+(I don't recall where the last sprite sheet came from, so please don't use it in your projects.)
 
 */
 
@@ -28,19 +29,15 @@ namespace Demo.SpriteAnimation {
         Texture2D spriteSheet, spriteSheet2, sprite;
         SpriteRPGPlayer player, selectedPlayer, selectedPlayer2;
         SpriteRPG playerGroup, playerGroup2;
-
-        BoxingViewportAdapter viewport;
-
+        
         float time;
         float frameTime = .2f;
 
         public SpriteAnimationDemo() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            this.Window.AllowUserResizing = true;
-
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 550;
+            graphics.PreferredBackBufferHeight = 200;
         }
 
         /// <summary>
@@ -50,9 +47,6 @@ namespace Demo.SpriteAnimation {
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize() {
-
-            // viewport allows for dynamic screen scaling
-            viewport = new BoxingViewportAdapter(Window, GraphicsDevice, 1024, 768);
 
             base.Initialize();
         }
@@ -70,17 +64,17 @@ namespace Demo.SpriteAnimation {
             sprite = Content.Load<Texture2D>("sprite");
 
             player = new SpriteRPGPlayer(4, 16, 16);
-            player.position = new Vector2(100, 250);
+            player.position = new Vector2(50, 90);
 
             playerGroup = new SpriteRPG(8, 4, 3, 32, 32);
 
             selectedPlayer = playerGroup.player[0];
-            selectedPlayer.position = new Vector2(300, 250);
+            selectedPlayer.position = new Vector2(250, 90);
 
             playerGroup2 = new SpriteRPG(6, 4, 3, 32, 45);
 
             selectedPlayer2 = playerGroup2.player[0];
-            selectedPlayer2.position = new Vector2(500, 250);
+            selectedPlayer2.position = new Vector2(450, 90);
 
         }
 
@@ -200,7 +194,8 @@ namespace Demo.SpriteAnimation {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
-            spriteBatch.Begin(transformMatrix: viewport.GetScaleMatrix());
+            // pointClamp is important to set in if you're going to do rectangle clipping of sprite sheets
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             spriteBatch.Draw(sprite, player.position, player.rect, Color.White, 0.0f, player.origin, 6.0f, SpriteEffects.None, 0.0f);
             spriteBatch.Draw(spriteSheet, selectedPlayer.position, selectedPlayer.rect, Color.White, 0.0f, selectedPlayer.origin, 4.0f, SpriteEffects.None, 0.0f);
             spriteBatch.Draw(spriteSheet2, selectedPlayer2.position, selectedPlayer2.rect, Color.White, 0.0f, selectedPlayer2.origin, 4.0f, SpriteEffects.None, 0.0f);
