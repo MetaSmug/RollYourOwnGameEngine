@@ -7,6 +7,7 @@ using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Collisions;
 using MonoGame.Extended.Maps.Tiled;
 using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Animations.SpriteSheets;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
 using System;
@@ -23,7 +24,7 @@ namespace TileMap_Test {
         TiledMap tiledMap;
         ViewportAdapter viewport;
         
-        SpriteSheetAnimationPlayer player;
+        SpriteSheetAnimator player;
         Sprite sprite;
 
 
@@ -50,7 +51,7 @@ namespace TileMap_Test {
 
             Window.Title = "Tile Map Game (MonoGame.Extended)";
             
-            Window.AllowUserResizing = true;
+          //  Window.AllowUserResizing = true;
 
 
             base.Initialize();
@@ -77,7 +78,7 @@ namespace TileMap_Test {
             motwAnimationFactory.Add("left", new SpriteSheetAnimationData(new[] { 12, 13, 14, 13 }, isLooping: false));
             motwAnimationFactory.Add("up", new SpriteSheetAnimationData(new[] { 36, 37, 38, 37 }, isLooping: false));
             motwAnimationFactory.Add("right", new SpriteSheetAnimationData(new[] { 24, 25, 26, 25 }, isLooping: false));
-            player = new SpriteSheetAnimationPlayer(motwAnimationFactory);
+            player = new SpriteSheetAnimator(motwAnimationFactory);
             player.Play("idle");
             sprite = player.CreateSprite(new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2));
 
@@ -110,7 +111,11 @@ namespace TileMap_Test {
 
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
+            Console.Write(capabilities.ToString());
+
             GamePadState controller = GamePad.GetState(PlayerIndex.One);
+            if (controller.IsButtonDown(Buttons.LeftTrigger)) camera.ZoomIn(deltaSeconds);
+            if (controller.IsButtonDown(Buttons.RightTrigger)) camera.ZoomOut(deltaSeconds);
                 
             
             if (capabilities.IsConnected){
@@ -123,6 +128,8 @@ namespace TileMap_Test {
                 }
 
             }
+
+            
 
             var keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up)) MovePlayer("up");

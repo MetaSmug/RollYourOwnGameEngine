@@ -10,11 +10,10 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\..\..\MonoGame.Extended\Source\MonoGame.Extended.Content.Pipeline\bin\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
-#begin motw.png
+#begin sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -24,14 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:motw.png
+/build:sprite.png
 
-#begin untitled.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:untitled.tmx
-
-#begin rpg_maker_vx_rtp_tileset_by_telles0808.png
+#begin sprite_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -41,29 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:rpg_maker_vx_rtp_tileset_by_telles0808.png
-
-#begin tile test.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:tile test.tmx
-
-#begin TileB_exterior_2_summer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:TileB_exterior_2_summer.png
-
-#begin new test.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:new test.tmx
+/build:sprite_sheet.png
 
 #begin NPC_20.png
 /importer:TextureImporter
