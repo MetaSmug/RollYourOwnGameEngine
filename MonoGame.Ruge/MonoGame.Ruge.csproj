@@ -52,6 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardEngine\Card.cs" />
+    <Compile Include="CardEngine\Deck.cs" />
+    <Compile Include="CardEngine\Slot.cs" />
+    <Compile Include="CardEngine\Stack.cs" />
+    <Compile Include="CardEngine\Table.cs" />
     <Compile Include="DragonDrop\DragonDrop.cs" />
     <Compile Include="DragonDrop\IDragonDropItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
