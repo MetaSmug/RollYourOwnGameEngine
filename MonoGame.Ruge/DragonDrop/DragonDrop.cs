@@ -3,7 +3,7 @@
 
 Licensed under MIT (see License.txt)
 
-Attribution: adapted from XNA example by Jakob Krarup (xnafan.net)
+Attribution: some code adapted from XNA example by Jakob Krarup (xnafan.net)
  
  */
 
