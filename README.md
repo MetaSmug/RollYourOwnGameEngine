@@ -2,6 +2,8 @@
 
 #Roll Your Own Game Engine with Ruge
 
+5/23/16 - Release of Version 0.2 - RPG Maker style SpriteSheet Animation
+
 5/18/16 - Initial release of DragonDrop:
 https://github.com/MetaSmug/RollYourOwnGameEngine/releases
 
