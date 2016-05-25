@@ -65,6 +65,10 @@ namespace MonoGame.Ruge.CardEngine {
         public bool IsDraggable { get; set; } = true;
         public int ZIndex { get; set; }
 
+        public Vector2 origin { get; set; }
+        public float snapSpeed { get; set; } = 25.0f;
+        public bool returnToOrigin { get; set; } = false;
+        protected const int ON_TOP = 1000;
 
         public Rectangle Border {
             get { return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height); }
@@ -129,13 +133,47 @@ namespace MonoGame.Ruge.CardEngine {
 
         public void SetTexture(Texture2D texture) { _texture = texture; }
 
+        /// <summary>
+        /// Animation for returning the card to its original position if it can't find a new place to snap to
+        /// </summary>
+        /// <returns>returns true if the card is back in its original position; otherwise it increments the animation</returns>
+        private bool ReturnToOrigin() {
+
+            bool backAtOrigin = false;
+
+            var pos = Position;
+
+            float distance = (float)Math.Sqrt(Math.Pow(origin.X - pos.X, 2) + (float)Math.Pow(origin.Y - pos.Y, 2));
+            float directionX = (origin.X - pos.X) / distance;
+            float directionY = (origin.Y - pos.Y) / distance;
+
+            pos.X += directionX * snapSpeed;
+            pos.Y += directionY * snapSpeed;
+
+
+            if (Math.Sqrt(Math.Pow(pos.X - Position.X, 2) + Math.Pow(pos.Y - Position.Y, 2)) >= distance) {
+
+                Position = origin;
+
+                backAtOrigin = true;
+
+                ZIndex -= ON_TOP;
+
+            }
+            else Position = pos;
+
+            return backAtOrigin;
+
+        }
+        
+
         #endregion
 
 
         #region events
 
         public event EventHandler Selected;
-        
+
         public void OnSelected() {
             Selected(this, EventArgs.Empty);
         }
@@ -165,12 +203,18 @@ namespace MonoGame.Ruge.CardEngine {
         /// todo: override Update if needed
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime) { }
+
+        public void Update(GameTime gameTime) {
 
 
+            if (returnToOrigin) {
+
+                returnToOrigin = !ReturnToOrigin();
+
+            }
 
 
         }
-
         #endregion
+    }
 }

@@ -14,9 +14,8 @@ namespace MonoGame.Ruge.CardEngine {
     public class Table {
 
         // Z-Index constants
-        const int BACKGROUND = -1;
         protected const int ON_TOP = 1000;
-
+        
         protected int _stackOffsetHorizontal, _stackOffsetVertical;
         protected Texture2D _cardBack, _slot;
         protected SpriteBatch _spriteBatch;
