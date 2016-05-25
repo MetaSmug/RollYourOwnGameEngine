@@ -33,9 +33,7 @@ namespace MonoGame.Ruge.CardEngine {
             _slot = slot;
         }
 
-
-        public void Clear() { stacks.Clear(); }
-
+        
         public void AddSlot(Slot slot) {
             slots.Add(slot);
             _dragonDrop.Add(slot);
@@ -47,12 +45,14 @@ namespace MonoGame.Ruge.CardEngine {
 
 
         /// <summary>
-        /// override this
+        /// override this to set up your table
         /// </summary>
-        /// <param name="resetTable"></param>
-        public void SetTable(bool resetTable = false) { }
+        public void SetTable() { }
 
-        public void ResetTable() { SetTable(true); }
+        /// <summary>
+        /// override this to clear the table
+        /// </summary>
+        public void Clear() { }
 
 
     }

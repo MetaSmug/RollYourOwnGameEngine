@@ -11,18 +11,26 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.CardEngine {
 
+    public enum SlotType {
+        draw,
+        discard,
+        stack,
+        play
+    }
+
     public class Slot : IDragonDropItem {
 
         public Vector2 Position { get; set; }
         public bool IsSelected { get; set; }
         public bool IsMouseOver { get; set; }
-        public int ZIndex { get; set; }
+        public int ZIndex { get; set; } = -1;
         public Texture2D Texture { get; set; }
 
         public bool IsDraggable { get; set; } = false;
         public bool IsVisible { get; set; } = true;
 
         private SpriteBatch _spriteBatch;
+        public SlotType type;
 
 
         public Rectangle Border {

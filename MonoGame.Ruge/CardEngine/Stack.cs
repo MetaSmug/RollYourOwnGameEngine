@@ -37,7 +37,7 @@ namespace MonoGame.Ruge.CardEngine {
         protected List<Card> _cards = new List<Card>();
 
 
-        public IEnumerable<Card> cards {
+        public IEnumerable<Card> cards_Zsort {
             get {
 
                 // since MonoGame renders sprites on top of each other based on the order they are called in the Draw() method, this
@@ -48,6 +48,10 @@ namespace MonoGame.Ruge.CardEngine {
             }
         }
 
+        public List<Card> cards {
+            get { return _cards; }
+
+        }
 
         public int Count { get { return _cards.Count; } }
 

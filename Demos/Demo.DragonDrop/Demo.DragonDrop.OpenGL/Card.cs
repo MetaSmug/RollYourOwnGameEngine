@@ -14,6 +14,7 @@ namespace Demo.DragonDrop {
 
     class Card : IDragonDropItem {
 
+        
         private Vector2 _position;
 
         public Vector2 Position {

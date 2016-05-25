@@ -20,7 +20,7 @@ namespace MonoGame.Ruge.DragonDrop {
 
         MouseState oldMouse, currentMouse;
         public SpriteBatch spriteBatch;
-        ViewportAdapter viewport;
+        public ViewportAdapter viewport;
 
         private List<T> _items;
         private readonly List<T> _selectedItems;

@@ -59,11 +59,11 @@ namespace MonoGame.Ruge.CardEngine {
 
         #region properties
 
-        public Card Child { get; set; }
-        public bool IsSelected { get; set; }
-        public bool IsMouseOver { get; set; }
-        public bool IsDraggable { get; set; } = true;
-        public int ZIndex { get; set; }
+        public Card Child { get; set; } 
+        public bool IsSelected { get; set; } = false;
+        public bool IsMouseOver { get; set; } = false;
+        public bool IsDraggable { get; set; } = false;
+        public int ZIndex { get; set; } = 1;
 
         public Vector2 origin { get; set; }
         public float snapSpeed { get; set; } = 25.0f;
@@ -142,7 +142,7 @@ namespace MonoGame.Ruge.CardEngine {
             bool backAtOrigin = false;
 
             var pos = Position;
-
+            
             float distance = (float)Math.Sqrt(Math.Pow(origin.X - pos.X, 2) + (float)Math.Pow(origin.Y - pos.Y, 2));
             float directionX = (origin.X - pos.X) / distance;
             float directionY = (origin.Y - pos.Y) / distance;
@@ -156,9 +156,7 @@ namespace MonoGame.Ruge.CardEngine {
                 Position = origin;
 
                 backAtOrigin = true;
-
-                ZIndex -= ON_TOP;
-
+                
             }
             else Position = pos;
 
@@ -198,11 +196,7 @@ namespace MonoGame.Ruge.CardEngine {
         #endregion
 
         #region overrides
-
-        /// <summary>
-        /// todo: override Update if needed
-        /// </summary>
-        /// <param name="gameTime"></param>
+        
 
         public void Update(GameTime gameTime) {
 
