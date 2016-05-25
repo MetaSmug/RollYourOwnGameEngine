@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.CardEngine {
 
-    class Deck : Stack {
+    public class Deck : Stack {
 
         /// <summary>
         /// constructor
@@ -29,13 +29,13 @@ namespace MonoGame.Ruge.CardEngine {
         /// </summary>
         public void freshDeck() {
 
-            cards.Clear();
+            _cards.Clear();
 
             foreach (Suit mySuit in Enum.GetValues(typeof(Suit))) {
 
                 foreach (Rank myRank in Enum.GetValues(typeof(Rank))) {
 
-                    cards.Add(new Card(myRank, mySuit, _cardBack, _spriteBatch));
+                    _cards.Add(new Card(myRank, mySuit, _cardBack, _spriteBatch));
 
                 }
 
@@ -49,7 +49,7 @@ namespace MonoGame.Ruge.CardEngine {
         /// <param name="numCards"></param>
         public void testDeck(int numCards) {
 
-            cards.Clear();
+            _cards.Clear();
 
             Deck subDeck = new Deck(_cardBack, _spriteBatch);
             subDeck.freshDeck();
@@ -58,7 +58,7 @@ namespace MonoGame.Ruge.CardEngine {
             if (numCards <= subDeck.Count) {
 
                 for (int i = 0; i < numCards; i++) {
-                    cards.Add(subDeck.drawCard());
+                    _cards.Add(subDeck.drawCard());
                 }
 
             }

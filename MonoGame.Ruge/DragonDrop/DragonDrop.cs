@@ -19,7 +19,7 @@ namespace MonoGame.Ruge.DragonDrop {
     public class DragonDrop<T> : DrawableGameComponent where T : IDragonDropItem {
 
         MouseState oldMouse, currentMouse;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
         ViewportAdapter viewport;
 
         private List<T> _items;

@@ -6,13 +6,14 @@ Licensed under MIT (see License.txt)
 
 */
 
+using System;
 using MonoGame.Ruge.DragonDrop;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.CardEngine {
 
-    enum Suit {
+    public enum Suit {
 
         clubs,
         hearts,
@@ -21,14 +22,14 @@ namespace MonoGame.Ruge.CardEngine {
 
     };
 
-    enum CardColor {
+    public enum CardColor {
 
         red,
         black
 
     }
 
-    enum Rank {
+    public enum Rank {
         _A,
         _2,
         _3,
@@ -44,7 +45,7 @@ namespace MonoGame.Ruge.CardEngine {
         _K
     }
 
-    class Card : IDragonDropItem {
+    public class Card : IDragonDropItem {
 
 
         public Rank rank;
@@ -61,7 +62,7 @@ namespace MonoGame.Ruge.CardEngine {
         public Card Child { get; set; }
         public bool IsSelected { get; set; }
         public bool IsMouseOver { get; set; }
-        public bool IsDraggable { get; set; }
+        public bool IsDraggable { get; set; } = true;
         public int ZIndex { get; set; }
 
 
@@ -131,18 +132,19 @@ namespace MonoGame.Ruge.CardEngine {
         #endregion
 
 
+        #region events
 
-        #region overrides
+        public event EventHandler Selected;
+        
+        public void OnSelected() {
+            Selected(this, EventArgs.Empty);
+        }
 
-        /// <summary>
-        /// todo: add selection logic
-        /// </summary>
-        public void OnSelected() { }
+        public event EventHandler Deselected;
 
-        /// <summary>
-        /// todo: add deselection logic
-        /// </summary>
-        public void OnDeselected() { }
+        public void OnDeselected() {
+            Deselected(this, EventArgs.Empty);
+        }
 
         /// <summary>
         /// todo: override with your collusion handling code
@@ -155,6 +157,10 @@ namespace MonoGame.Ruge.CardEngine {
         /// </summary>
         public void OnPositionUpdate() { }
 
+        #endregion
+
+        #region overrides
+
         /// <summary>
         /// todo: override Update if needed
         /// </summary>
@@ -162,9 +168,9 @@ namespace MonoGame.Ruge.CardEngine {
         public void Update(GameTime gameTime) { }
 
 
-        #endregion
 
 
         }
 
+        #endregion
 }

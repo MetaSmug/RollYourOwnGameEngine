@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.CardEngine {
 
-    class Slot : IDragonDropItem {
+    public class Slot : IDragonDropItem {
 
         public Vector2 Position { get; set; }
         public bool IsSelected { get; set; }
@@ -20,6 +20,7 @@ namespace MonoGame.Ruge.CardEngine {
         public Texture2D Texture { get; set; }
 
         public bool IsDraggable { get; set; } = false;
+        public bool IsVisible { get; set; } = true;
 
         private SpriteBatch _spriteBatch;
 
@@ -62,6 +63,7 @@ namespace MonoGame.Ruge.CardEngine {
         public void OnSelected() { }
         public void OnDeselected() { }
 
+        public void Update(GameTime gameTime) { }
         public void HandleCollusion(IDragonDropItem item) { }
 
         #endregion

@@ -7,40 +7,53 @@ Licensed under MIT (see License.txt)
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Ruge.DragonDrop;
 
 namespace MonoGame.Ruge.CardEngine {
 
-    class Table {
+    public class Table {
 
-        //Z-Index constants
+        // Z-Index constants
         const int BACKGROUND = -1;
-        const int ON_TOP = 1000;
+        protected const int ON_TOP = 1000;
 
-        private int _stackOffsetHorizontal, _stackOffsetVertical;
-        private Texture2D _cardBack;
-        private SpriteBatch _spriteBatch;
-
+        protected int _stackOffsetHorizontal, _stackOffsetVertical;
+        protected Texture2D _cardBack, _slot;
+        protected SpriteBatch _spriteBatch;
+        protected DragonDrop<IDragonDropItem> _dragonDrop;
+        
         public List<Slot> slots = new List<Slot>();
         public List<Stack> stacks = new List<Stack>();
 
-        public Table(SpriteBatch sb, Texture2D cardback, int stackOffsetH, int stackOffetV) {
-            _spriteBatch = sb;
+        public Table(DragonDrop<IDragonDropItem> dd, Texture2D cardback, Texture2D slot, int stackOffsetH, int stackOffsetV) {
+            _spriteBatch = dd.spriteBatch;
+            _dragonDrop = dd;
             _stackOffsetHorizontal = stackOffsetH;
-            _stackOffsetVertical = stackOffetV;
+            _stackOffsetVertical = stackOffsetV;
             _cardBack = cardback;
+            _slot = slot;
         }
 
 
         public void Clear() { stacks.Clear(); }
 
-        public void AddSlot(Slot slot) { slots.Add(slot); }
-        public void AddStack(Stack stack) { stacks.Add(stack); }
+        public void AddSlot(Slot slot) {
+            slots.Add(slot);
+            _dragonDrop.Add(slot);
+        }
+        public void AddStack(Stack stack) {
+            stacks.Add(stack);
+            foreach (Card card in stack.cards) _dragonDrop.Add(card);
+        }
 
 
         /// <summary>
         /// override this
         /// </summary>
-        public void SetTable() { }
+        /// <param name="resetTable"></param>
+        public void SetTable(bool resetTable = false) { }
+
+        public void ResetTable() { SetTable(true); }
 
 
     }
