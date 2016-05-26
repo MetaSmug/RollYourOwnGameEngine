@@ -10,13 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Ruge.CardEngine {
-
-    public enum SlotType {
-        draw,
-        discard,
-        stack,
-        play
-    }
+    
 
     public class Slot : IDragonDropItem {
 
@@ -30,7 +24,13 @@ namespace MonoGame.Ruge.CardEngine {
         public bool IsVisible { get; set; } = true;
 
         private SpriteBatch _spriteBatch;
-        public SlotType type;
+        
+        public StackType type {
+            get { return stack.type; }
+            set { stack.type = value; }
+        }
+
+        public Stack stack { get; set; }
 
 
         public Rectangle Border {
@@ -40,11 +40,13 @@ namespace MonoGame.Ruge.CardEngine {
 
         #region constructor 
 
-        public Slot(Texture2D tex, SpriteBatch sb, Vector2 pos) {
+        public Slot(Texture2D slotTex, Texture2D cardBack, SpriteBatch sb, Vector2 pos) {
 
             Position = pos;
-            Texture = tex;
+            Texture = slotTex;
             _spriteBatch = sb;
+            stack = new Stack(cardBack, sb);
+            stack.slot = this;
 
         }
 
@@ -72,7 +74,7 @@ namespace MonoGame.Ruge.CardEngine {
         public void OnDeselected() { }
 
         public void Update(GameTime gameTime) { }
-        public void HandleCollusion(IDragonDropItem item) { }
+        public void OnCollusion(IDragonDropItem item) { }
 
         #endregion
 

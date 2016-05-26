@@ -59,16 +59,26 @@ namespace MonoGame.Ruge.CardEngine {
 
         #region properties
 
-        public Card Child { get; set; } 
+        public Card Child { get; set; } = null;
         public bool IsSelected { get; set; } = false;
         public bool IsMouseOver { get; set; } = false;
         public bool IsDraggable { get; set; } = false;
         public int ZIndex { get; set; } = 1;
+        
+
+        public CardColor color {
+            get {
+                if (suit.Equals(Suit.hearts) || suit.Equals(Suit.diamonds)) return CardColor.red;
+                else return CardColor.black;
+            }
+        }
 
         public Vector2 origin { get; set; }
         public float snapSpeed { get; set; } = 25.0f;
         public bool returnToOrigin { get; set; } = false;
         protected const int ON_TOP = 1000;
+
+        public Stack stack { get; set; }
 
         public Rectangle Border {
             get { return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height); }
@@ -163,7 +173,30 @@ namespace MonoGame.Ruge.CardEngine {
             return backAtOrigin;
 
         }
-        
+
+        public void MoveStack(Stack newStack) {
+
+            stack.cards.Remove(this);
+            newStack.addCard(this);
+            stack = newStack;
+            Position = stack.slot.Position;
+            origin = Position;
+
+        }
+
+        public void SetParent(Card parent) {
+
+            MoveStack(parent.stack);
+
+            Vector2 pos = new Vector2(parent.Position.X + stack.offset.X, parent.Position.Y + stack.offset.Y);
+
+            Position = pos;
+            origin = pos;
+
+            parent.Child = this;
+
+        }
+
 
         #endregion
 
@@ -171,29 +204,37 @@ namespace MonoGame.Ruge.CardEngine {
         #region events
 
         public event EventHandler Selected;
-
-        public void OnSelected() {
-            Selected(this, EventArgs.Empty);
-        }
+        public void OnSelected() { Selected(this, EventArgs.Empty); }
 
         public event EventHandler Deselected;
+        public void OnDeselected() { Deselected(this, EventArgs.Empty); }
+        
+        public void OnPositionUpdate() {
 
-        public void OnDeselected() {
-            Deselected(this, EventArgs.Empty);
+            if (Child != null) {
+
+                Vector2 pos = new Vector2(Position.X + stack.offset.X, Position.Y + stack.offset.Y);
+                Child.Position = pos;
+                Child.ZIndex = ZIndex + 1;
+
+            }
+
         }
 
-        /// <summary>
-        /// todo: override with your collusion handling code
-        /// </summary>
-        /// <param name="item"></param>
-        public void HandleCollusion(IDragonDropItem item) { }
+        public event EventHandler<CollusionEvent> Collusion;
 
-        /// <summary>
-        /// todo: override with logic if you want to do something while the card is moving, like drag child cards
-        /// </summary>
-        public void OnPositionUpdate() { }
+        public void OnCollusion(IDragonDropItem item) {
+
+            CollusionEvent e = new CollusionEvent();
+            e.item = item;
+
+            Collusion(this, e);
+
+        }
+
 
         #endregion
+
 
         #region overrides
         
@@ -210,5 +251,11 @@ namespace MonoGame.Ruge.CardEngine {
 
         }
         #endregion
+    }
+
+    public class CollusionEvent : EventArgs {
+
+        public IDragonDropItem item { get; set; }
+
     }
 }

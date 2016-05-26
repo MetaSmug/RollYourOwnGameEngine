@@ -137,7 +137,7 @@ namespace MonoGame.Ruge.DragonDrop {
                         if (!Equals(ItemUnderTheMouseCursor, item)) {
 
                             //if (item.Contains(CurrentMousePosition) && item.IsDraggable) ItemUnderTheMouseCursor.HandleCollusion(item);
-                            if (item.Contains(CurrentMousePosition)) ItemUnderTheMouseCursor.HandleCollusion(item);
+                            if (item.Contains(CurrentMousePosition)) ItemUnderTheMouseCursor.OnCollusion(item);
 
                         }
 

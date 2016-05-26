@@ -17,30 +17,26 @@ namespace MonoGame.Ruge.CardEngine {
         protected const int ON_TOP = 1000;
         
         protected int _stackOffsetHorizontal, _stackOffsetVertical;
-        protected Texture2D _cardBack, _slot;
+        protected Texture2D _cardBack, _slotTex;
         protected SpriteBatch _spriteBatch;
         protected DragonDrop<IDragonDropItem> _dragonDrop;
         
         public List<Slot> slots = new List<Slot>();
-        public List<Stack> stacks = new List<Stack>();
 
-        public Table(DragonDrop<IDragonDropItem> dd, Texture2D cardback, Texture2D slot, int stackOffsetH, int stackOffsetV) {
+        public Table(DragonDrop<IDragonDropItem> dd, Texture2D cardBack, Texture2D slotTex, int stackOffsetH, int stackOffsetV) {
             _spriteBatch = dd.spriteBatch;
             _dragonDrop = dd;
             _stackOffsetHorizontal = stackOffsetH;
             _stackOffsetVertical = stackOffsetV;
-            _cardBack = cardback;
-            _slot = slot;
+            _cardBack = cardBack;
+            _slotTex = slotTex;
         }
 
         
         public void AddSlot(Slot slot) {
+            slot.stack.SetOffset(_stackOffsetHorizontal, _stackOffsetVertical);
             slots.Add(slot);
             _dragonDrop.Add(slot);
-        }
-        public void AddStack(Stack stack) {
-            stacks.Add(stack);
-            foreach (Card card in stack.cards) _dragonDrop.Add(card);
         }
 
 

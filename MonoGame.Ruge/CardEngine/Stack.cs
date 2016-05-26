@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace MonoGame.Ruge.CardEngine {
 
@@ -24,7 +25,9 @@ namespace MonoGame.Ruge.CardEngine {
         discard,
         stack,
         deck,
-        hand
+        hand,
+        play,
+        undefined
     }
 
     public class Stack {
@@ -36,6 +39,20 @@ namespace MonoGame.Ruge.CardEngine {
 
         protected List<Card> _cards = new List<Card>();
 
+        protected int _stackOffsetHorizontal, _stackOffsetVertical;
+
+        public Vector2 offset {
+            get {
+
+                switch (method) {
+                    case StackMethod.horizontal: return new Vector2(_stackOffsetHorizontal, 0);
+                    case StackMethod.vertical:   return new Vector2(0, _stackOffsetVertical);
+                    default:                     return Vector2.Zero;
+                }
+            }
+        }
+
+        public Slot slot { get; set; }
 
         public IEnumerable<Card> cards_Zsort {
             get {
@@ -60,8 +77,22 @@ namespace MonoGame.Ruge.CardEngine {
 
         #region public methods
 
-        public void addCard(Card card) { _cards.Add(card); }
+        public void addCard(Card card) {
+            card.stack = this;
+            _cards.Add(card);
+        }
         public void Clear() { _cards.Clear(); }
+
+        private void OnStackChanged(object sender, EventArgs eventArgs) {
+            _cards.Remove((Card)sender);
+        }
+
+        public void SetOffset(int x, int y) {
+
+            _stackOffsetHorizontal = x;
+            _stackOffsetVertical = y;
+
+        }
 
         /// <summary>
         /// constructor
