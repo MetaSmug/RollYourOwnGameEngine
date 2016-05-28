@@ -110,7 +110,7 @@ namespace Demo.DragonDrop {
 
         }
 
-        public void HandleCollusion(IDragonDropItem item) {
+        public void OnCollusion(IDragonDropItem item) {
 
             if (item.Border.Intersects(Border)) {
                 Card parent = (Card)item;

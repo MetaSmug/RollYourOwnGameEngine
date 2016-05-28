@@ -23,7 +23,6 @@ namespace MonoGame.Ruge.DragonDrop {
 
         public T selectedItem;
         public List<T> dragItems;
-        public List<T> mouseItems;
         
 
         /// <summary>
@@ -36,7 +35,6 @@ namespace MonoGame.Ruge.DragonDrop {
             viewport = vp;
             selectedItem = default(T);
             dragItems = new List<T>();
-            mouseItems = new List<T>();
         }
 
         public void Add(T item) {

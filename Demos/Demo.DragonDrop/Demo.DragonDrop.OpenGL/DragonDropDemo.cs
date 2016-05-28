@@ -69,7 +69,7 @@ namespace Demo.DragonDrop {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            dragonDrop = new DragonDrop<Card>(this, spriteBatch, viewport);
+            dragonDrop = new DragonDrop<Card>(this, viewport);
 
             background = Content.Load<Texture2D>("grass");
             slot = Content.Load<Texture2D>("slot");
@@ -117,14 +117,14 @@ namespace Demo.DragonDrop {
 
                 if (resetRect.Contains(point)) {
 
-                    foreach (var item in dragonDrop.Items) item.Reset();
+                    foreach (var item in dragonDrop.dragItems) item.Reset();
 
                 }
 
             }
 
 
-            foreach (Card item in dragonDrop.Items) item.Update(gameTime);
+            foreach (Card item in dragonDrop.dragItems) item.Update(gameTime);
 
 
             base.Update(gameTime);
@@ -151,7 +151,7 @@ namespace Demo.DragonDrop {
             spriteBatch.Draw(slot, new Rectangle(825, 50, slot.Width, slot.Height), Color.Black);
 
 
-            foreach (Card item in dragonDrop.Items) {
+            foreach (Card item in dragonDrop.dragItems) {
 
                 item.Draw(gameTime);
 
