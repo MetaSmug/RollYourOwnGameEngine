@@ -15,15 +15,17 @@ namespace MonoGame.Ruge.DragonDrop {
     public interface IDragonDropItem {
         Vector2 Position { get; set; }
         bool IsSelected { get; set; }
-        bool IsMouseOver { set; }
+        bool IsMouseOver { get; set; }
         Rectangle Border { get; }
         bool IsDraggable { get; set; }
         int ZIndex { get; set; }
         Texture2D Texture { get; }
-
+        
         void OnSelected();
         void OnDeselected();
         bool Contains(Vector2 pointToCheck);
-        void HandleCollusion(IDragonDropItem item);
+        void OnCollusion(IDragonDropItem item);
+        void Update(GameTime gameTime);
+        void Draw(GameTime gameTime);
     }
 }
