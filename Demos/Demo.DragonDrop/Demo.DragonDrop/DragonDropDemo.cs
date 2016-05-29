@@ -3,10 +3,11 @@
 
 Licensed under MIT (see License.txt)
 
-Attribution: adapted from XNA example by Jakob Krarup (xnafan.net)
  
- */
- 
+*/
+
+
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -41,7 +42,6 @@ namespace Demo.DragonDrop {
             graphics.PreferredBackBufferHeight = 750;
 
             this.Window.AllowUserResizing = true;
-
         }
 
         /// <summary>
@@ -54,9 +54,6 @@ namespace Demo.DragonDrop {
 
             // viewport allows for dynamic screen scaling
             viewport = new BoxingViewportAdapter(Window, GraphicsDevice, 1000, 750);
-
-
-
 
             base.Initialize();
         }
@@ -77,9 +74,11 @@ namespace Demo.DragonDrop {
             resetRect = new Rectangle(350, 600, reset.Width, reset.Height);
 
             // make this slot droppable
-            Card slotItem = new Card(spriteBatch, slot, new Vector2(425, 325), 0);
-            slotItem.IsDraggable = false;
-            slotItem.ZIndex = -2000;
+            var slotItem = new Card(spriteBatch, slot, new Vector2(425, 325), 0) {
+                IsDraggable = false,
+                ZIndex = -1
+            };
+
             dragonDrop.Add(slotItem);
 
             dragonDrop.Add(new Card(spriteBatch, Content.Load<Texture2D>("2"), new Vector2(25, 50), 2));
@@ -90,7 +89,6 @@ namespace Demo.DragonDrop {
 
             Components.Add(dragonDrop);
         }
-
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -109,9 +107,9 @@ namespace Demo.DragonDrop {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            MouseState ms = Mouse.GetState();
 
-            Point point = viewport.PointToScreen(ms.X, ms.Y);
+            var ms = Mouse.GetState();
+            var point = viewport.PointToScreen(ms.X, ms.Y);
 
             if (ms.LeftButton == ButtonState.Pressed) {
 
@@ -122,13 +120,12 @@ namespace Demo.DragonDrop {
                 }
 
             }
-
-
-            foreach (Card item in dragonDrop.dragItems) item.Update(gameTime);
-
+            
 
             base.Update(gameTime);
         }
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -151,11 +148,8 @@ namespace Demo.DragonDrop {
             spriteBatch.Draw(slot, new Rectangle(825, 50, slot.Width, slot.Height), Color.Black);
 
 
-            foreach (Card item in dragonDrop.dragItems) {
-
-                item.Draw(gameTime);
-
-            }
+            var items = dragonDrop.dragItems.OrderBy(z => z.ZIndex).ToList();
+            foreach (var item in items) item.Draw(gameTime);
 
             spriteBatch.End();
 
